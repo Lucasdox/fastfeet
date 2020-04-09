@@ -12,7 +12,7 @@ class RecipientController {
       complemento,
       estado,
       cidade,
-      cep
+      cep,
     });
   }
 }
