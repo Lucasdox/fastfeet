@@ -1,4 +1,5 @@
 import { Op } from 'sequelize';
+import { zonedTimeToUtc } from 'date-fns-tz';
 import Order from '../models/Order';
 
 class FinishedDeliveriesController {

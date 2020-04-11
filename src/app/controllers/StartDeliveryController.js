@@ -4,7 +4,7 @@ import { Op } from 'sequelize';
 import Order from '../models/Order';
 
 class StartDeliveryController {
-  async put(req, res) {
+  async update(req, res) {
     const { order_id, courier_id } = req.params;
     const currentDate = new Date();
     const hourStart = setHours(startOfHour(currentDate), 8);

@@ -12,6 +12,8 @@ import FileController from './app/controllers/FileController';
 import OrderController from './app/controllers/OrderController';
 import NotificationController from './app/controllers/NotificationController';
 import multerConfig from './config/multer';
+import EndDeliveryController from './app/controllers/EndDeliveryController';
+import DeliveryProblemController from './app/controllers/DeliveryProblemController';
 
 const routes = new Router();
 const upload = multer(multerConfig);
@@ -30,9 +32,20 @@ routes.get(
 );
 routes.put(
   '/courierdeliveries/:courier_id/start_delivery/:order_id',
-  StartDeliveryController.put
+  StartDeliveryController.update
+);
+routes.put(
+  '/courierdeliveries/:courier_id/end_delivery/:order_id',
+  upload.single('file'),
+  EndDeliveryController.update
 );
 
+routes.get('/deliveries/:order_id/problems', DeliveryProblemController.index);
+routes.post('/deliveries/:order_id/problems', DeliveryProblemController.store);
+routes.delete(
+  '/problems/:problem_id/cancel-delivery',
+  DeliveryProblemController.destroy
+);
 /** from now on, we need to AUTHENTICATE */
 routes.use(authMiddleware);
 
@@ -40,6 +53,7 @@ routes.post('/recipients', RecipientController.store);
 
 routes.put('/users', UserController.update);
 
+routes.get('/couriers', CourierController.index);
 routes.post('/couriers', CourierController.store);
 routes.put('/couriers', CourierController.update);
 
